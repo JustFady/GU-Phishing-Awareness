@@ -1,20 +1,18 @@
-# Use a small Python base
+# Use a small Python base image
 FROM python:3.10-slim
 
-# Set /app as our working directory
+# Set working directory
 WORKDIR /app
 
-# First copy just requirements and install them
+# Copy requirements and install
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Now copy the rest of the code
-COPY app/ ./app
-COPY templates/ ./templates
-COPY static/ ./static
+# Copy everything inside /app (your app source folder)
+COPY app/ .
 
-# Expose port 5000 (Flask default)
+# Expose Flask's default port
 EXPOSE 5000
 
-# Run the Flask app
-CMD ["python", "app/app.py"]
+# Run the app
+CMD ["python", "app.py"]
