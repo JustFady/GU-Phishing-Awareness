@@ -1,3 +1,8 @@
+from flask import Flask, render_template, request, redirect
+import os
+import json
+import datetime
+
 @app.route('/submit', methods=['POST'])
 def submit():
     # Get the email from the submitted form
