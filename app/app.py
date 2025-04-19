@@ -1,55 +1,52 @@
+from flask import Flask, render_template, request, redirect
 import os
 import json
-from datetime import datetime
-from flask import Flask, render_template, request, redirect
+import datetime
 
-app = Flask(__name__)
+app = Flask(__name__)  # templates folder is auto-detected
+
+# Path to the log file
+LOG_FILE = 'logs/visits.json'
 
 
 @app.route('/')
 def index():
-    # Show the password change form
     return render_template('index.html')
 
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    # Get the email from the form
     email = request.form.get('email')
 
-    # Build log entry
-    entry = {
-        "time": datetime.utcnow().isoformat(),
+    visitor_info = {
+        "timestamp": datetime.datetime.utcnow().isoformat(),
         "email": email,
-        "ip": request.remote_addr
+        "ip": request.remote_addr,
+        "user_agent": request.headers.get('User-Agent')
     }
 
-    # Ensure logs folder exists
     os.makedirs('logs', exist_ok=True)
-    log_file = 'logs/visits.json'
 
-    # Load existing entries or start new list
-    try:
-        with open(log_file) as f:
-            data = json.load(f)
-    except Exception:
-        data = []
+    if os.path.exists(LOG_FILE):
+        with open(LOG_FILE, 'r+') as f:
+            try:
+                data = json.load(f)
+            except json.JSONDecodeError:
+                data = []
+            data.append(visitor_info)
+            f.seek(0)
+            json.dump(data, f, indent=2)
+    else:
+        with open(LOG_FILE, 'w') as f:
+            json.dump([visitor_info], f, indent=2)
 
-    # Save the new entry
-    data.append(entry)
-    with open(log_file, 'w') as f:
-        json.dump(data, f, indent=2)
-
-    # Redirect to success page
     return redirect('/success')
 
 
 @app.route('/success')
 def success():
-    # Show confirmation
     return render_template('success.html')
 
 
 if __name__ == '__main__':
-    # Run the app locally
     app.run(debug=True)
