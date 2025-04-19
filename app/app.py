@@ -1,46 +1,54 @@
 from flask import Flask, render_template, request, redirect
-import os
-import json
-import datetime
+import os, json
+from datetime import datetime
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
+    # Show the password change form
     return render_template('index.html')
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    # Grab the email from the form
+    # Get the email from the form
     email = request.form.get('email')
 
-    # Build an entry with timestamp and IP
+    # Build log entry
     entry = {
-        "time": datetime.datetime.utcnow().isoformat(),
+        "time": datetime.utcnow().isoformat(),
         "email": email,
         "ip": request.remote_addr
     }
 
-    # Ensure logs folder and file exist
+    # Ensure logs folder exists
     os.makedirs('logs', exist_ok=True)
     log_file = 'logs/visits.json'
-    if os.path.exists(log_file):
-        with open(log_file, 'r') as f:
+
+    # Load existing entries or start new list
+    try:
+        with open(log_file) as f:
             data = json.load(f)
-    else:
+    except Exception:
         data = []
 
-    # Append and save
+    # Save the new entry
     data.append(entry)
     with open(log_file, 'w') as f:
         json.dump(data, f, indent=2)
 
+    # Redirect to success page
     return redirect('/success')
+
 
 @app.route('/success')
 def success():
+    # Show confirmation
     return render_template('success.html')
 
+
 if __name__ == '__main__':
-    # Default host=127.0.0.1, port=5000
+    # Run the app locally
     app.run(debug=True)
