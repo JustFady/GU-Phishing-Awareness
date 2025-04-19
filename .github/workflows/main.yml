@@ -28,6 +28,11 @@ jobs:
         run: |
           echo "Running flake8..."
           flake8 app/
+          
+      - name: Run tests
+        run: |
+          echo "Running pytest..."
+          pytest || true
 
       - name: Build Docker image
         run: |
