@@ -32,7 +32,7 @@ jobs:
       - name: Run tests
         run: |
           echo "Running pytest..."
-          PYTHONPATH=$PWD pytest || true
+          pytest || true
 
       - name: Build Docker image
         run: |
