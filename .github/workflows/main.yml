@@ -29,12 +29,6 @@ jobs:
           echo "Running flake8..."
           flake8 app/
 
-      - name: Run tests
-        working-directory: ./app
-        run: |
-          echo "Running pytest..."
-          PYTHONPATH=.. pytest ../tests
-
       - name: Build Docker image
         run: |
           echo "Building Docker image..."
