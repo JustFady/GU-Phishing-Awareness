@@ -1,7 +1,7 @@
 import os
 import json
 
-from app.app import app
+from app import app
 
 LOG_FILE = 'logs/visits.json'
 
