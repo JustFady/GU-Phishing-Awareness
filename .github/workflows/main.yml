@@ -30,9 +30,10 @@ jobs:
           flake8 app/
 
       - name: Run tests
+        working-directory: ./app
         run: |
           echo "Running pytest..."
-          PYTHONPATH=. pytest
+          PYTHONPATH=.. pytest ../tests
 
       - name: Build Docker image
         run: |
