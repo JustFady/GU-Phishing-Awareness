@@ -3,21 +3,18 @@ import os
 import json
 import datetime
 
-app = Flask(__name__)  # templates folder is auto-detected
+# Let Flask know the templates are inside the 'app/templates' folder
+app = Flask(__name__, template_folder='app/templates')
 
-# Path to the log file
 LOG_FILE = 'logs/visits.json'
-
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
 @app.route('/submit', methods=['POST'])
 def submit():
     email = request.form.get('email')
-
     visitor_info = {
         "timestamp": datetime.datetime.utcnow().isoformat(),
         "email": email,
@@ -42,11 +39,9 @@ def submit():
 
     return redirect('/success')
 
-
 @app.route('/success')
 def success():
     return render_template('success.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
