@@ -1,7 +1,9 @@
 @app.route('/submit', methods=['POST'])
 def submit():
-email = request.form.get('email')
+    # Get the email from the submitted form
+    email = request.form.get('email')
 
+    # Gather info about the visitor
     visitor_info = {
         "timestamp": datetime.datetime.utcnow().isoformat(),
         "email": email,
@@ -9,17 +11,24 @@ email = request.form.get('email')
         "user_agent": request.headers.get('User-Agent')
     }
 
-    if os.path.exists(log_path):
-        with open(log_path, 'r+') as f:
+    # Make sure the logs folder exists
+    os.makedirs('app/logs', exist_ok=True)
+
+    # Load existing data or start a new list
+    log_file = 'app/logs/visits.json'
+    if os.path.exists(log_file):
+        with open(log_file, 'r') as f:
             try:
                 data = json.load(f)
             except json.JSONDecodeError:
                 data = []
-            data.append(visitor_info)
-            f.seek(0)
-            json.dump(data, f, indent=2)
     else:
-        with open(log_path, 'w') as f:
-            json.dump([visitor_info], f, indent=2)
+        data = []
 
+    # Add new visitor info and save it
+    data.append(visitor_info)
+    with open(log_file, 'w') as f:
+        json.dump(data, f, indent=2)
+
+    # Redirect to success page after submission
     return redirect('/success')
