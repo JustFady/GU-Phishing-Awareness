@@ -42,7 +42,7 @@ jobs:
         docker build -t gu-phishing .
 
     - name: Save Docker image as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: gu-phishing-image
-        path: /home/runner/work/gu-phishing-awareness-devops/gu-phishing-awareness-devops
+        path: .
