@@ -3,7 +3,7 @@ import os
 import json
 import datetime
 
-app = Flask(__name__, template_folder='app/templates')
+app = Flask(__name__)
 
 LOG_FILE = 'logs/visits.json'
 
