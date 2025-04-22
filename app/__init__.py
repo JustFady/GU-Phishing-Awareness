@@ -1,1 +1,1 @@
-# This file marks the app folder as a package.
+# This file marks the app folder as a package.\n
