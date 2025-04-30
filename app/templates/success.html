@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Changed - Gonzaga University</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                        url('../assets/GUbackground.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 100px 20px auto;
+            flex: 1;
+        }
+
+        .login-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #041E42;
+        }
+
+        .success-message {
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .logo img {
+            height: auto;
+            width: 200px;
+            max-width: 100%;
+        }
+
+        .footer {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            margin-top: auto;
+        }
+
+        .footer span {
+            color: #041E42;
+            font-size: 12px;
+            margin-right: 20px;
+        }
+
+        .footer a {
+            color: #041E42;
+            font-size: 12px;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='assets/logo-microclimate-gonzaga-university.png') }}" alt="Gonzaga University">
+            </div>
+            <h1>Password Changed Successfully</h1>
+            <p class="success-message">Your password has been updated. You can now sign in with your new password.</p>
+        </div>
+    </div>
+    <div class="footer">
+        <span>©2024 Gonzaga University</span>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Contact Support</a>
+    </div>
+</body>
+</html>

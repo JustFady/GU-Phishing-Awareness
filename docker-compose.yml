@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gu-phishing-demo
+    ports:
+      - "5000:5000"
+    volumes:
+      - phishing_data:/data
+    environment:
+      - DEBUG=True
+      - DATA_DIR=/data
+    restart: unless-stopped
+
+volumes:
+  phishing_data:

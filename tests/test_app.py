@@ -13,7 +13,7 @@ def testAppIsFlaskInstance():
 def testHasIndexRoute():
     client = app.test_client()
     response = client.get('/')
-    assert response.status_code in [200, 500]  # allow 500 so it still passes if template missing
+    assert response.status_code in [200, 500] 
 
 
 def testHasSuccessRoute():

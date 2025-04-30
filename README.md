@@ -1,19 +1,56 @@
-# GU Password Change Interface
+# GU-Phishing-Awareness
 
-A simple password change interface for Gonzaga University.
+A phishing awareness demo for Gonzaga University that simulates a password change form to collect user submissions.
+
+## File Structure
+
+```
+app/
+├── assets/               # Static assets (images, favicon)
+├── app.py                # Main Flask application
+└── __init__.py           # Python package initialization
+```
+
+## Running the Application
+
+### Using Docker Compose (recommended)
+
+```bash
+docker-compose up --build
+```
+
+This will:
+1. Build the Docker image
+2. Start the container
+3. Mount a persistent volume for data storage
+4. Make the app available at http://localhost:5000
+
+### Manual Setup
+
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Run the application:
+   ```bash
+   python app/app.py
+   ```
 
 ## Features
-- Password change form
-- Form validation
-- Success page
-- Automatic file download of submissions
 
-## Development
-1. Clone the repository
-2. Make changes
-3. Push to main branch
-4. GitHub Actions will:
-   - Validate HTML/CSS
-   - Deploy to GitHub Pages
+- Password change form that captures credentials
+- Successful form submission redirects to a confirmation page
+- All captured data is stored in a persistent volume
+- View all submissions at http://localhost:5000/view-logs
+- Download submissions in JSON, CSV, or TXT format
 
-## Structure
+## Data Storage
+
+## Viewing Submissions
+
+These files are stored in a Docker volume named `phishing_data` for persistence.
+
+## License
+
+MIT
