@@ -20,8 +20,12 @@ DATA_DIR = os.environ.get(
 )
 
 # Create Flask app with proper folder structure
-app = Flask(__name__, 
-            static_folder=assets_dir)
+app = Flask(
+    __name__,
+    static_folder=assets_dir,
+    static_url_path='/assets'   # so `url("/assets/…")` works
+)
+
 
 # Debug paths
 print(f"Base directory: {base_dir}")
@@ -34,10 +38,11 @@ if os.path.exists(assets_dir):
 app.secret_key = 'gu_phishing_demo_secret_key'
 
 # Define data storage locations
-DATA_DIR = os.environ.get('DATA_DIR', '/data')
-LOG_FILE_JSON = f'{DATA_DIR}/submissions.json'
-LOG_FILE_CSV = f'{DATA_DIR}/submissions.csv'
-LOG_FILE_TXT = f'{DATA_DIR}/submissions.txt'
+# Define data storage locations (writable project-local `./data` folder)
+DATA_DIR      = os.environ.get('DATA_DIR', os.path.join(base_dir, 'data'))
+LOG_FILE_JSON = os.path.join(DATA_DIR, 'submissions.json')
+LOG_FILE_CSV  = os.path.join(DATA_DIR, 'submissions.csv')
+LOG_FILE_TXT  = os.path.join(DATA_DIR, 'submissions.txt')
 
 # CSV file headers
 CSV_HEADERS = [
