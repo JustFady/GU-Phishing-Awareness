@@ -13,8 +13,7 @@ app/
 
 ## Running the Application
 
-### Using Docker Compose (recommended)
-
+### Using Docker Compose
 ```bash
 docker-compose up --build
 ```
@@ -26,7 +25,6 @@ This will:
 4. Make the app available at http://localhost:5000
 
 ### Manual Setup
-
 1. Install dependencies:
    ```bash
    pip install -r requirements.txt
@@ -38,19 +36,8 @@ This will:
    ```
 
 ## Features
-
 - Password change form that captures credentials
 - Successful form submission redirects to a confirmation page
 - All captured data is stored in a persistent volume
 - View all submissions at http://localhost:5000/view-logs
 - Download submissions in JSON, CSV, or TXT format
-
-## Data Storage
-
-## Viewing Submissions
-
-These files are stored in a Docker volume named `phishing_data` for persistence.
-
-## License
-
-MIT
