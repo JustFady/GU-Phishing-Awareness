@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: gu-phishing-demo
+    env: python
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app/app.py"
+    plan: free
+    envVars:
+      - key: DATA_DIR
+        value: /data
+      - key: DEBUG
+        value: "False"
+      - key: PORT
+        value: "5000"

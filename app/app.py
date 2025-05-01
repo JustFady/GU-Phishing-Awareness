@@ -577,7 +577,6 @@ def view_logs():
         # Count total submissions
         submission_count = log_content.count("=== Submission at ")
             
-        # Create a simple HTML page to display the logs
         html = f"""
         <!DOCTYPE html>
         <html>
