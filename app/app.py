@@ -13,6 +13,12 @@ import sys
 base_dir = os.path.dirname(os.path.abspath(__file__))
 assets_dir = os.path.join(base_dir, 'assets')
 
+# at the top of app.py, right after you compute base_dir:
+DATA_DIR = os.environ.get(
+    'DATA_DIR',
+    os.path.join(base_dir, 'data')       # ← project-local ./data directory
+)
+
 # Create Flask app with proper folder structure
 app = Flask(__name__, 
             static_folder=assets_dir)
