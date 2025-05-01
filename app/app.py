@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, Response
+from .app import app
 import os
 import json
 import datetime
