@@ -1,1 +1,2 @@
-#app folder as a package.
+# app/__init__.py
+from .app import app
