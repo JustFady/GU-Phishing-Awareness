@@ -1,43 +1,17 @@
-# GU-Phishing-Awareness
+## How to Run the App Locally
 
-A phishing awareness demo for Gonzaga University that simulates a password change form to collect user submissions.
+### Option 1: Using Docker (recommended)
 
-## File Structure
+If you have Docker and Docker Compose installed, just run:
 
-```
-app/
-├── assets/               # Static assets (images, favicon)
-├── app.py                # Main Flask application
-└── __init__.py           # Python package initialization
-```
-
-## Running the Application
-
-### Using Docker Compose
 ```bash
 docker-compose up --build
-```
 
-This will:
-1. Build the Docker image
-2. Start the container
-3. Mount a persistent volume for data storage
-4. Make the app available at http://localhost:5000
+This builds the docker image, starts the container then hosts locally at http://localhost:5000
 
-### Manual Setup
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Option 2: Local setup
+pip install -r requirements.txt #install dependencies
+python app/app.py # run flask app
 
-2. Run the application:
-   ```bash
-   python app/app.py
-   ```
 
-## Features
-- Password change form that captures credentials
-- Successful form submission redirects to a confirmation page
-- All captured data is stored in a persistent volume
-- View all submissions at http://localhost:5000/view-logs
-- Download submissions in JSON, CSV, or TXT format
+https://gu-phishing-awareness.onrender.com/view-logs
