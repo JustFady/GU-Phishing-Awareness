@@ -1,21 +1,28 @@
 ## How to Run the App Locally
 
-### Option 1: Using Docker (recommended)
+### Option 1 – Docker (recommended)
 
-If you have Docker and Docker Compose installed, just run:
+    docker-compose up --build
 
-```bash
-docker-compose up --build
+Builds the image, starts the container, mounts a volume for logs, and serves the site at  
+http://localhost:5000
 
-This builds the docker image, starts the container then hosts locally at http://localhost:5000
+### Option 2 – Manual (no Docker)
 
-### Option 1: Using Docker (recommended)
-pip install -r requirements.txt #install dependencies
-python app/app.py # run flask app
+    pip install -r requirements.txt   # install dependencies
+    python app/app.py                 # start Flask app
 
+## Temporary Live Demo (expires May 14 2025)
 
-currently we are using cloud based web service Render but that link does expire after 05/14/2025 expiring along with the QR code unfortuntely.
+https://gu-phishing-awareness.onrender.com/  
+https://gu-phishing-awareness.onrender.com/success  
+https://gu-phishing-awareness.onrender.com/view-logs  
 
-https://gu-phishing-awareness.onrender.com/
-https://gu-phishing-awareness.onrender.com/success
-https://gu-phishing-awareness.onrender.com/view-logs
+## What It Does
+
+* Fake password‑reset form
+* Captures every submission and stores it locally (JSON file or Docker volume)
+* Redirects to a bogus success page after submit
+* `/view-logs` shows everything and lets you download data as JSON, CSV, or TXT
+
+For demo and educational use only.
