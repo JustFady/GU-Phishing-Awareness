@@ -1,43 +1,28 @@
-# GU-Phishing-Awareness
+## How to Run the App Locally
 
-A phishing awareness demo for Gonzaga University that simulates a password change form to collect user submissions.
+### Option 1 – Docker (recommended)
 
-## File Structure
+    docker-compose up --build
 
-```
-app/
-├── assets/               # Static assets (images, favicon)
-├── app.py                # Main Flask application
-└── __init__.py           # Python package initialization
-```
+Builds the image, starts the container, mounts a volume for logs, and serves the site at  
+http://localhost:5000
 
-## Running the Application
+### Option 2 – Manual (no Docker)
 
-### Using Docker Compose
-```bash
-docker-compose up --build
-```
+    pip install -r requirements.txt   # install dependencies
+    python app/app.py                 # start Flask app
 
-This will:
-1. Build the Docker image
-2. Start the container
-3. Mount a persistent volume for data storage
-4. Make the app available at http://localhost:5000
+## Temporary Live Demo (expires May 14 2025)
 
-### Manual Setup
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+https://gu-phishing-awareness.onrender.com/  
+https://gu-phishing-awareness.onrender.com/success  
+https://gu-phishing-awareness.onrender.com/view-logs  
 
-2. Run the application:
-   ```bash
-   python app/app.py
-   ```
+## What It Does
 
-## Features
-- Password change form that captures credentials
-- Successful form submission redirects to a confirmation page
-- All captured data is stored in a persistent volume
-- View all submissions at http://localhost:5000/view-logs
-- Download submissions in JSON, CSV, or TXT format
+* Fake password‑reset form
+* Captures every submission and stores it locally (JSON file or Docker volume)
+* Redirects to a bogus success page after submit
+* `/view-logs` shows everything and lets you download data as JSON, CSV, or TXT
+
+For demo and educational use only.
