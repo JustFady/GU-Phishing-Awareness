@@ -9,9 +9,13 @@ docker-compose up --build
 
 This builds the docker image, starts the container then hosts locally at http://localhost:5000
 
-### Option 2: Local setup
+### Option 1: Using Docker (recommended)
 pip install -r requirements.txt #install dependencies
 python app/app.py # run flask app
 
 
+currently we are using cloud based web service Render but that link does expire after 05/14/2025 expiring along with the QR code unfortuntely.
+
+https://gu-phishing-awareness.onrender.com/
+https://gu-phishing-awareness.onrender.com/success
 https://gu-phishing-awareness.onrender.com/view-logs
