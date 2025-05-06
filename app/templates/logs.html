@@ -1,152 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logs - Gonzaga Phishing Demo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='assets/public-favicon.ico') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            padding: 20px;
-        }
-        .logs-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #041E42;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .log-entry {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-        .log-entry h3 {
-            margin-top: 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .log-info {
-            display: grid;
-            grid-template-columns: 150px 1fr;
-            gap: 10px;
-        }
-        .log-label {
-            font-weight: bold;
-        }
-        .system-info {
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 4px;
-        }
-        pre {
-            background-color: #f5f5f5;
-            padding: 10px;
-            border-radius: 4px;
-            overflow-x: auto;
-        }
-        .download-btn {
-            display: inline-block;
-            background-color: #041E42;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 4px;
-            text-decoration: none;
-            margin-bottom: 20px;
-        }
-        .download-btn:hover {
-            background-color: #0a2e5c;
-        }
-        .header-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .count-info {
-            font-size: 14px;
-            color: #666;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Logs – Gonzaga Phishing Demo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link rel="shortcut icon" href="{{ url_for('static', filename='public-favicon.ico') }}" />
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; color: #333; padding: 20px }
+    .container { max-width: 1000px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 4px }
+    h1 { text-align: center; color: #041E42 }
+    .actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px }
+    .actions .count { font-size: 14px; color: #666 }
+    .actions a { background: #041E42; color: #fff; padding: 8px 12px; border-radius: 4px; text-decoration: none }
+    .actions a:hover { background: #0a2e5c }
+    pre { background: #f5f5f5; padding: 15px; border-radius: 4px; overflow-x: auto; white-space: pre-wrap }
+  </style>
 </head>
 <body>
-    <div class="logs-container">
-        <h1>Phishing Demo Logs</h1>
-        
-        <div class="header-actions">
-            <div class="count-info">
-                {% if logs %}
-                    Total entries: {{ logs|length }}
-                {% else %}
-                    No entries found
-                {% endif %}
-            </div>
-            <a href="{{ url_for('download_csv') }}" class="download-btn">Download CSV</a>
-        </div>
-        
-        {% if logs %}
-            {% for log in logs %}
-                <div class="log-entry">
-                    <h3>Entry from {{ log.timestamp }}</h3>
-                    
-                    <div class="log-info">
-                        <div class="log-label">Email:</div>
-                        <div>{{ log.email }}</div>
-                        
-                        {% if log.current_password %}
-                        <div class="log-label">Current Password:</div>
-                        <div>{{ log.current_password }}</div>
-                        {% endif %}
-                        
-                        {% if log.new_password %}
-                        <div class="log-label">New Password:</div>
-                        <div>{{ log.new_password }}</div>
-                        {% endif %}
-                        
-                        <div class="log-label">IP Address:</div>
-                        <div>{{ log.ip_address }}</div>
-                        
-                        <div class="log-label">MAC Address:</div>
-                        <div>{{ log.mac_address }}</div>
-                        
-                        <div class="log-label">Hostname:</div>
-                        <div>{{ log.hostname }}</div>
-                        
-                        <div class="log-label">User Agent:</div>
-                        <div>{{ log.user_agent }}</div>
-                    </div>
-                    
-                    <div class="system-info">
-                        <h4>System Information:</h4>
-                        <pre>{{ log.system_info | tojson(indent=2) }}</pre>
-                    </div>
-                    
-                    <details>
-                        <summary>HTTP Headers</summary>
-                        <pre>{{ log.http_headers | tojson(indent=2) }}</pre>
-                    </details>
-                    
-                    <details>
-                        <summary>Cookies</summary>
-                        <pre>{{ log.cookies | tojson(indent=2) }}</pre>
-                    </details>
-                </div>
-            {% endfor %}
+  <div class="container">
+    <h1>Phishing Demo Logs</h1>
+
+    <div class="actions">
+      <div class="count">
+        {% if total and total > 0 %}
+          Total entries: {{ total }}
         {% else %}
-            <p>No logs available.</p>
+          No entries found
         {% endif %}
+      </div>
+      <div>
+        <a href="{{ url_for('download', kind='csv') }}">Download CSV</a>
+        <a href="{{ url_for('download', kind='json') }}">Download JSON</a>
+        <a href="{{ url_for('download', kind='txt') }}">Download TXT</a>
+      </div>
     </div>
+
+    {% if logs %}
+      <pre>{{ logs }}</pre>
+    {% else %}
+      <p>No logs to display.</p>
+    {% endif %}
+  </div>
 </body>
-</html> 
+</html>
