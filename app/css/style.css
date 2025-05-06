@@ -124,7 +124,7 @@ footer {
     text-decoration: underline;
 }
 
-/* Add logo styling */
+/* logo styling */
 .logo {
     text-align: center;
     margin-bottom: 24px;
@@ -136,7 +136,7 @@ footer {
     max-width: 100%;
 }
 
-/* Success page specific styles */
+/* success page styles */
 .success-content {
     text-align: center;
     padding: 20px 0;

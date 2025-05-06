@@ -1,3 +1,5 @@
+#some test apps for devops
+
 from app.app import app
 
 
@@ -13,7 +15,7 @@ def testAppIsFlaskInstance():
 def testHasIndexRoute():
     client = app.test_client()
     response = client.get('/')
-    assert response.status_code in [200, 500] 
+    assert response.status_code in [200, 500]
 
 
 def testHasSuccessRoute():

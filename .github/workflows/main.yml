@@ -47,4 +47,4 @@ jobs:
           echo "Verifying image..."
           docker run --rm gu-phishing echo "Container starts OK"
 
-# add a separate “deploy” job here.
+# add separate “deploy” jobs here.
