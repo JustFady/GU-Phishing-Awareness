@@ -7,7 +7,7 @@
   <link rel="icon" href="assets/public-favicon.ico">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="site-shell">
+<body class="report-page">
   <header class="topbar" aria-label="Site navigation">
     <a class="brand-link" href="index.html">
       <img src="assets/logo-microclimate-gonzaga-university.png" alt="Gonzaga University">
@@ -19,11 +19,14 @@
     </nav>
   </header>
 
-  <main class="main-panel">
-    <section class="login-box result-box" aria-labelledby="page-title">
-      <p class="eyebrow">Simulation complete</p>
-      <h1 id="page-title">No credentials were sent</h1>
-      <p class="intro">This GitHub Pages version is a static awareness demo. The form redirects here in your browser only, with no backend, database, logs, or downloads.</p>
+  <main class="report-layout">
+    <section class="report-header" aria-labelledby="page-title">
+      <p class="eyebrow">Browser-only capture report</p>
+      <h1 id="page-title">Information entered on the page</h1>
+      <p>This report shows what a phishing page could read in the browser. It is not sent to a server, saved to a database, or written to a log file.</p>
+    </section>
+
+    <section class="report-panel" aria-label="Submission report">
       <div id="result-summary" class="result-summary" aria-live="polite">
         <p>No browser-only submission summary found. Try the simulation first to see the result details here.</p>
       </div>
@@ -34,7 +37,7 @@
     </section>
   </main>
 
-  <footer class="footer">
+  <footer class="footer solid">
     <span>Gonzaga University phishing awareness project</span>
     <a href="index.html">Simulation</a>
     <a href="success.html">Result</a>
@@ -48,11 +51,24 @@
     if (storedResult) {
       const result = JSON.parse(storedResult);
       const rows = [
-        ["Email", result.maskedEmail],
+        ["Email address", result.email],
         ["Submitted", result.submittedAt],
-        ["Current password field", result.currentPassword],
-        ["New password field", result.newPassword],
-        ["Confirm password field", result.confirmPassword]
+        ["Current password", result.currentPassword],
+        ["New password", result.newPassword],
+        ["Confirm password", result.confirmPassword],
+        ["New passwords match", result.passwordMatch],
+        ["Public IP address", result.publicIp],
+        ["MAC address", result.macAddress],
+        ["Browser", result.userAgent],
+        ["Operating platform", result.platform],
+        ["Language", result.language],
+        ["Timezone", result.timezone],
+        ["Screen size", result.screen],
+        ["Viewport size", result.viewport],
+        ["Referrer", result.referrer],
+        ["Page URL", result.pageUrl],
+        ["Cookies enabled", result.cookiesEnabled],
+        ["Browser online", result.online]
       ];
       const list = document.createElement("dl");
 
@@ -68,6 +84,25 @@
       });
 
       summary.replaceChildren(list);
+
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.ok ? response.json() : Promise.reject())
+        .then((data) => {
+          result.publicIp = data.ip || "Unavailable";
+          sessionStorage.setItem("simulationResult", JSON.stringify(result));
+          const ipRows = [...summary.querySelectorAll("dt")];
+          const ipLabel = ipRows.find((term) => term.textContent === "Public IP address");
+          if (ipLabel && ipLabel.nextElementSibling) {
+            ipLabel.nextElementSibling.textContent = result.publicIp;
+          }
+        })
+        .catch(() => {
+          const ipRows = [...summary.querySelectorAll("dt")];
+          const ipLabel = ipRows.find((term) => term.textContent === "Public IP address");
+          if (ipLabel && ipLabel.nextElementSibling) {
+            ipLabel.nextElementSibling.textContent = "Unavailable";
+          }
+        });
     }
   </script>
 </body>
