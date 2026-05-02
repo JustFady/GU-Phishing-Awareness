@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulation Complete - Gonzaga Phishing Awareness</title>
   <link rel="icon" href="assets/public-favicon.ico">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body class="report-page">
   <header class="topbar" aria-label="Site navigation">
@@ -21,9 +21,9 @@
 
   <main class="report-layout">
     <section class="report-header" aria-labelledby="page-title">
-      <p class="eyebrow">Browser-only capture report</p>
+      <p class="eyebrow">Security awareness capture report</p>
       <h1 id="page-title">Information entered on the page</h1>
-      <p>This report shows what a phishing page could read in the browser. It is not sent to a server, saved to a database, or written to a log file.</p>
+      <p>This report shows what a phishing page could read in the browser. The raw password values are intentionally hidden by the training page.</p>
     </section>
 
     <section class="report-panel" aria-label="Submission report">
@@ -50,25 +50,30 @@
 
     if (storedResult) {
       const result = JSON.parse(storedResult);
+      const valueOrUnavailable = (value) => value || "Unavailable from this submission";
       const rows = [
-        ["Email address", result.email],
-        ["Submitted", result.submittedAt],
-        ["Current password", result.currentPassword],
-        ["New password", result.newPassword],
-        ["Confirm password", result.confirmPassword],
-        ["New passwords match", result.passwordMatch],
-        ["Public IP address", result.publicIp],
-        ["MAC address", result.macAddress],
-        ["Browser", result.userAgent],
-        ["Operating platform", result.platform],
-        ["Language", result.language],
-        ["Timezone", result.timezone],
-        ["Screen size", result.screen],
-        ["Viewport size", result.viewport],
-        ["Referrer", result.referrer],
-        ["Page URL", result.pageUrl],
-        ["Cookies enabled", result.cookiesEnabled],
-        ["Browser online", result.online]
+        ["Email address", valueOrUnavailable(result.email || result.maskedEmail)],
+        ["Submitted", valueOrUnavailable(result.submittedAt)],
+        ["Current password", valueOrUnavailable(result.currentPassword)],
+        ["New password", valueOrUnavailable(result.newPassword)],
+        ["Confirm password", valueOrUnavailable(result.confirmPassword)],
+        ["New passwords match", valueOrUnavailable(result.passwordMatch)],
+        ["Password length signal", valueOrUnavailable(result.passwordPolicySignal)],
+        ["Public IP address", valueOrUnavailable(result.publicIp)],
+        ["MAC address", valueOrUnavailable(result.macAddress)],
+        ["Browser", valueOrUnavailable(result.userAgent)],
+        ["Operating platform", valueOrUnavailable(result.platform)],
+        ["Language", valueOrUnavailable(result.language)],
+        ["Timezone", valueOrUnavailable(result.timezone)],
+        ["Screen size", valueOrUnavailable(result.screen)],
+        ["Viewport size", valueOrUnavailable(result.viewport)],
+        ["Color depth", valueOrUnavailable(result.colorDepth)],
+        ["Device memory", valueOrUnavailable(result.deviceMemory)],
+        ["CPU cores", valueOrUnavailable(result.cpuCores)],
+        ["Referrer", valueOrUnavailable(result.referrer)],
+        ["Page URL", valueOrUnavailable(result.pageUrl)],
+        ["Cookies enabled", valueOrUnavailable(result.cookiesEnabled)],
+        ["Browser online", valueOrUnavailable(result.online)]
       ];
       const list = document.createElement("dl");
 
