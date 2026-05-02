@@ -61,6 +61,21 @@
   <script>
     document.getElementById("training-form").addEventListener("submit", function (event) {
       event.preventDefault();
+      const form = event.currentTarget;
+      const email = form.email.value.trim();
+      const atIndex = email.indexOf("@");
+      const maskedEmail = atIndex > 1
+        ? `${email.slice(0, 2)}***${email.slice(atIndex)}`
+        : "Entered";
+
+      sessionStorage.setItem("simulationResult", JSON.stringify({
+        maskedEmail,
+        submittedAt: new Date().toLocaleString(),
+        currentPassword: "Completed, not saved",
+        newPassword: "Completed, not saved",
+        confirmPassword: "Completed, not saved"
+      }));
+
       window.location.href = "success.html";
     });
   </script>

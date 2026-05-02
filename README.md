@@ -10,6 +10,8 @@ This project is intended for cybersecurity awareness and classroom demonstration
 
 The current version does not collect credentials, write logs, run a backend service, or provide downloadable submission data.
 
+After form submission, the result page shows a browser-only summary with a masked email address, timestamp, and completion status for the password fields. Password values are not stored or displayed.
+
 ## Pages
 
 - `index.html` - password reset simulation page
@@ -50,8 +52,9 @@ Then visit `http://localhost:8000`.
 - No backend server is used.
 - No form data is transmitted.
 - No credentials are collected.
+- Password values are never stored or shown.
 - No logs, databases, or downloadable submission files are created.
-- The form redirects in the browser only.
+- The form redirects in the browser and uses `sessionStorage` only for the temporary result summary.
 
 ## Maintenance
 

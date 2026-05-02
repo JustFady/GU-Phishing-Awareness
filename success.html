@@ -24,6 +24,9 @@
       <p class="eyebrow">Simulation complete</p>
       <h1 id="page-title">No credentials were sent</h1>
       <p class="intro">This GitHub Pages version is a static awareness demo. The form redirects here in your browser only, with no backend, database, logs, or downloads.</p>
+      <div id="result-summary" class="result-summary" aria-live="polite">
+        <p>No browser-only submission summary found. Try the simulation first to see the result details here.</p>
+      </div>
       <div class="button-row">
         <a class="button-link" href="index.html">Try Again</a>
         <a class="button-link secondary" href="logs.html">View Training Notes</a>
@@ -37,5 +40,35 @@
     <a href="success.html">Result</a>
     <a href="logs.html">Training Notes</a>
   </footer>
+
+  <script>
+    const summary = document.getElementById("result-summary");
+    const storedResult = sessionStorage.getItem("simulationResult");
+
+    if (storedResult) {
+      const result = JSON.parse(storedResult);
+      const rows = [
+        ["Email", result.maskedEmail],
+        ["Submitted", result.submittedAt],
+        ["Current password field", result.currentPassword],
+        ["New password field", result.newPassword],
+        ["Confirm password field", result.confirmPassword]
+      ];
+      const list = document.createElement("dl");
+
+      rows.forEach(([label, value]) => {
+        const row = document.createElement("div");
+        const term = document.createElement("dt");
+        const detail = document.createElement("dd");
+
+        term.textContent = label;
+        detail.textContent = value;
+        row.append(term, detail);
+        list.append(row);
+      });
+
+      summary.replaceChildren(list);
+    }
+  </script>
 </body>
 </html>
