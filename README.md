@@ -1,94 +1,103 @@
 # Gonzaga Phishing Awareness
 
-A static phishing-awareness training demo for credential safety education, deployed with GitHub Pages.
+This project is a static phishing-awareness training demo. It is designed to help students, staff, and faculty understand how credential phishing works, why fake password-reset pages can be convincing, and what warning signs to look for before entering account information.
 
-Live site: https://justfady.github.io/GU-Phishing-Awareness/
+Live demo: https://justfady.github.io/GU-Phishing-Awareness/
 
-## Overview
+## What Is Phishing?
 
-This project demonstrates how a password reset prompt can appear convincing, then redirects users to a browser-only report that explains what information a phishing page could read. It is intended for cybersecurity awareness, classroom demonstrations, and safe discussion of social engineering risk.
+Phishing is a social engineering attack where an attacker pretends to be a trusted person or organization to trick someone into taking an unsafe action. Common goals include stealing passwords, collecting multi-factor authentication codes, installing malware, or convincing someone to send money or sensitive information.
 
-The site is intentionally static. It does not run a backend, transmit form data to this project, write logs, save submissions, or provide downloadable capture files.
+Credential phishing is especially common in university environments because one account can provide access to email, learning systems, cloud storage, payroll portals, and other internal services.
 
-## Features
+## How This Type of Attack Works
 
-- Gonzaga-themed password reset simulation.
-- Browser-only capture report after submission.
-- Displays submitted email, masked password values, password character counts, password match status, timestamp, public IP when available, browser user agent, platform, and timezone.
-- Keeps raw password values hidden.
-- Deploys automatically to GitHub Pages on updates to `main`.
+A typical password-reset phishing attack follows this pattern:
 
-## Pages
+1. The attacker sends an email that appears to come from a trusted university department, IT support desk, or automated account system.
+2. The email creates urgency, such as claiming the account will expire, access will be suspended, or a password must be updated immediately.
+3. The message includes a link to a fake login or password-change page.
+4. The page uses familiar branding, colors, logos, and wording to look legitimate.
+5. The victim enters an email address and password.
+6. A real phishing site would send those credentials to the attacker, who may try to access the account quickly before the victim notices.
 
-- `index.html` - password reset simulation page
+This demo stops before that final harmful step. It does not send credentials to a server, store submissions, write logs, or display raw password values.
+
+## Example Phishing Email
+
+```text
+Subject: Action Required: Gonzaga Account Password Update
+
+Dear Gonzaga Community Member,
+
+Our records show that your university account password is scheduled to expire today.
+To avoid interruption to email, Canvas, and campus services, please update your
+password using the secure account portal below:
+
+Update Password: https://example.com/gonzaga-account-update
+
+If your password is not updated within 24 hours, your account access may be
+temporarily suspended.
+
+Thank you,
+Gonzaga Account Services
+```
+
+This email is suspicious because it creates urgency, uses a generic greeting, threatens account suspension, and sends the recipient to a link that should be carefully verified before use.
+
+## Warning Signs
+
+- The email pressures you to act immediately.
+- The sender address does not match the official organization domain.
+- The link destination does not match the service it claims to represent.
+- The message asks for a password after you clicked a link in an email.
+- The greeting is generic or the wording feels unusual.
+- The page looks familiar but the browser address bar is wrong.
+- The site asks for more information than needed.
+
+## What To Do Before Entering Credentials
+
+- Check the browser address bar carefully.
+- Navigate to the service directly instead of using the email link.
+- Use bookmarks or official university pages when possible.
+- Be cautious with unexpected password reset requests.
+- Report suspicious emails to the appropriate IT or security team.
+- If you entered credentials on a suspicious page, change your password from the real account portal and contact support immediately.
+
+## What This Demo Shows
+
+The demo includes:
+
+- A password-reset style page.
+- A result page showing what limited information a browser-only page can read.
+- Masked password fields with character counts.
+- Basic browser-visible metadata such as timestamp, public IP when available, user agent, platform, and timezone.
+
+The demo intentionally does not collect, store, transmit, or reveal raw passwords.
+
+## Project Files
+
+- `index.html` - password-reset simulation page
 - `success.html` - browser-only capture report page
-- `logs.html` - training notes and static deployment explanation
-
-Each page includes navigation links so users can move between the simulation, result, and training notes.
-
-## Suggested GitHub Metadata
-
-Description:
-
-```text
-Static phishing-awareness training demo for Gonzaga-themed credential prompt education, deployed with GitHub Pages.
-```
-
-Topics:
-
-```text
-phishing-awareness
-cybersecurity
-security-awareness
-cybersecurity-education
-social-engineering
-web-security
-github-pages
-static-site
-html
-css
-javascript
-training-demo
-```
-
-## Repository Structure
-
-```text
-.
-├── .github/workflows/main.yml
-├── assets/
-├── css/style.css
-├── index.html
-├── success.html
-├── logs.html
-└── README.md
-```
-
-## GitHub Pages Deployment
-
-The repository deploys to GitHub Pages with `.github/workflows/main.yml` whenever `main` is updated. The workflow uploads the repository as a static site and publishes it through the `github-pages` environment.
+- `logs.html` - training notes
+- `css/style.css` - site styling
+- `assets/` - images and favicon
+- `.github/workflows/main.yml` - GitHub Pages deployment workflow
 
 ## Local Preview
 
-Open `index.html` in a browser, or run any static file server from the repository root:
+Open `index.html` directly in a browser, or run a simple static server:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Then visit `http://localhost:8000`.
+Then visit:
 
-## Safety Notes
+```text
+http://localhost:8000
+```
 
-- No backend server is used.
-- No form data is transmitted to this project.
-- Raw credentials are not collected, stored, or displayed.
-- Password values are masked immediately and never stored or shown in raw form.
-- No logs, databases, or downloadable submission files are created.
-- The form redirects in the browser and uses `sessionStorage` only for the temporary capture report.
-- Public IP lookup depends on the visitor browser reaching `api.ipify.org`.
-- MAC addresses are not available to websites in modern browsers.
+## Deployment
 
-## Maintenance
-
-To update the site, edit the static HTML/CSS files, commit the change, and push to `main`. GitHub Actions will publish the update automatically.
+The site deploys automatically to GitHub Pages whenever changes are pushed to `main`.
