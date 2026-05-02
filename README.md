@@ -1,16 +1,22 @@
 # Gonzaga Phishing Awareness
 
-A static phishing-awareness training demo built for GitHub Pages. The site shows how a convincing password reset page can appear, then explains that no information was submitted or stored.
+A static phishing-awareness training demo for credential safety education, deployed with GitHub Pages.
 
 Live site: https://justfady.github.io/GU-Phishing-Awareness/
 
-## Project Purpose
+## Overview
 
-This project is intended for cybersecurity awareness and classroom demonstration use. It helps users recognize suspicious credential prompts while keeping the implementation safe, static, and transparent.
+This project demonstrates how a password reset prompt can appear convincing, then redirects users to a browser-only report that explains what information a phishing page could read. It is intended for cybersecurity awareness, classroom demonstrations, and safe discussion of social engineering risk.
 
-The current version does not send credentials, write logs, run a backend service, or provide downloadable submission data.
+The site is intentionally static. It does not run a backend, transmit form data to this project, write logs, save submissions, or provide downloadable capture files.
 
-After form submission, the result page shows a browser-only capture report with the submitted email address, masked password values with character counts, timestamp, public IP when available, and a small set of browser-visible metadata. Raw password values are intentionally hidden.
+## Features
+
+- Gonzaga-themed password reset simulation.
+- Browser-only capture report after submission.
+- Displays submitted email, masked password values, password character counts, password match status, timestamp, public IP when available, browser user agent, platform, and timezone.
+- Keeps raw password values hidden.
+- Deploys automatically to GitHub Pages on updates to `main`.
 
 ## Pages
 
@@ -19,6 +25,31 @@ After form submission, the result page shows a browser-only capture report with 
 - `logs.html` - training notes and static deployment explanation
 
 Each page includes navigation links so users can move between the simulation, result, and training notes.
+
+## Suggested GitHub Metadata
+
+Description:
+
+```text
+Static phishing-awareness training demo for Gonzaga-themed credential prompt education, deployed with GitHub Pages.
+```
+
+Topics:
+
+```text
+phishing-awareness
+cybersecurity
+security-awareness
+cybersecurity-education
+social-engineering
+web-security
+github-pages
+static-site
+html
+css
+javascript
+training-demo
+```
 
 ## Repository Structure
 
@@ -51,7 +82,7 @@ Then visit `http://localhost:8000`.
 
 - No backend server is used.
 - No form data is transmitted to this project.
-- Raw credentials are not collected.
+- Raw credentials are not collected, stored, or displayed.
 - Password values are masked immediately and never stored or shown in raw form.
 - No logs, databases, or downloadable submission files are created.
 - The form redirects in the browser and uses `sessionStorage` only for the temporary capture report.
