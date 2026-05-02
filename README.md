@@ -1,16 +1,37 @@
-## Gonzaga Phishing Awareness
+# Gonzaga Phishing Awareness
 
-Static phishing-awareness demo for GitHub Pages.
+A static phishing-awareness training demo built for GitHub Pages. The site shows how a convincing password reset page can appear, then explains that no information was submitted or stored.
+
+Live site: https://justfady.github.io/GU-Phishing-Awareness/
+
+## Project Purpose
+
+This project is intended for cybersecurity awareness and classroom demonstration use. It helps users recognize suspicious credential prompts while keeping the implementation safe, static, and transparent.
+
+The current version does not collect credentials, write logs, run a backend service, or provide downloadable submission data.
 
 ## Pages
 
-- `index.html` - password-reset simulation
-- `success.html` - simulation result page
-- `logs.html` - training notes and deployment explanation
+- `index.html` - password reset simulation page
+- `success.html` - post-submit explanation page
+- `logs.html` - training notes and static deployment explanation
 
-Every page includes navigation links to the other pages.
+Each page includes navigation links so users can move between the simulation, result, and training notes.
 
-## Deployment
+## Repository Structure
+
+```text
+.
+├── .github/workflows/main.yml
+├── assets/
+├── css/style.css
+├── index.html
+├── success.html
+├── logs.html
+└── README.md
+```
+
+## GitHub Pages Deployment
 
 The repository deploys to GitHub Pages with `.github/workflows/main.yml` whenever `main` is updated. The workflow uploads the repository as a static site and publishes it through the `github-pages` environment.
 
@@ -24,6 +45,14 @@ python3 -m http.server 8000
 
 Then visit `http://localhost:8000`.
 
-## Safety
+## Safety Notes
 
-This version has no backend, no database, no log files, no downloads, and no credential collection. The form redirects in the browser only.
+- No backend server is used.
+- No form data is transmitted.
+- No credentials are collected.
+- No logs, databases, or downloadable submission files are created.
+- The form redirects in the browser only.
+
+## Maintenance
+
+To update the site, edit the static HTML/CSS files, commit the change, and push to `main`. GitHub Actions will publish the update automatically.
