@@ -1,28 +1,29 @@
-## How to Run the App Locally
+## Gonzaga Phishing Awareness
 
-### Option 1 – Docker (recommended)
+Static phishing-awareness demo for GitHub Pages.
 
-    docker-compose up --build
+## Pages
 
-Builds the image, starts the container, mounts a volume for logs, and serves the site at  
-http://localhost:5000
+- `index.html` - password-reset simulation
+- `success.html` - simulation result page
+- `logs.html` - training notes and deployment explanation
 
-### Option 2 – Manual (no Docker)
+Every page includes navigation links to the other pages.
 
-    pip install -r requirements.txt   # install dependencies
-    python app/app.py                 # start Flask app
+## Deployment
 
-## Temporary Live Demo (expires May 14 2025)
+The repository deploys to GitHub Pages with `.github/workflows/main.yml` whenever `main` is updated. The workflow uploads the repository as a static site and publishes it through the `github-pages` environment.
 
-https://gu-phishing-awareness.onrender.com/  
-https://gu-phishing-awareness.onrender.com/success  
-https://gu-phishing-awareness.onrender.com/view-logs  
+## Local Preview
 
-## What It Does
+Open `index.html` in a browser, or run any static file server from the repository root:
 
-* Fake password‑reset form
-* Captures every submission and stores it locally (JSON file or Docker volume)
-* Redirects to a bogus success page after submit
-* `/view-logs` shows everything and lets you download data as JSON, CSV, or TXT
+```bash
+python3 -m http.server 8000
+```
 
-For demo and educational use only.
+Then visit `http://localhost:8000`.
+
+## Safety
+
+This version has no backend, no database, no log files, no downloads, and no credential collection. The form redirects in the browser only.

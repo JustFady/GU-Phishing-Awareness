@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gonzaga Phishing Awareness</title>
+  <link rel="icon" href="assets/public-favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="site-shell">
+  <header class="topbar" aria-label="Site navigation">
+    <a class="brand-link" href="index.html">
+      <img src="assets/logo-microclimate-gonzaga-university.png" alt="Gonzaga University">
+    </a>
+    <nav class="page-nav">
+      <a aria-current="page" href="index.html">Simulation</a>
+      <a href="success.html">Result</a>
+      <a href="logs.html">Training Notes</a>
+    </nav>
+  </header>
+
+  <main class="main-panel">
+    <section class="login-box" aria-labelledby="page-title">
+      <p class="eyebrow">Security awareness demo</p>
+      <h1 id="page-title">Change your password</h1>
+      <p class="intro">This static training page demonstrates how convincing a password reset prompt can look. It does not submit or store credentials.</p>
+
+      <form id="training-form" class="training-form" action="success.html" method="get">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="username@gonzaga.edu" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="currentPassword">Most Recent Password</label>
+          <input type="password" id="currentPassword" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="newPassword">New Password</label>
+          <input type="password" id="newPassword" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm New Password</label>
+          <input type="password" id="confirmPassword" autocomplete="off" required>
+        </div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Gonzaga University phishing awareness project</span>
+    <a href="index.html">Simulation</a>
+    <a href="success.html">Result</a>
+    <a href="logs.html">Training Notes</a>
+  </footer>
+
+  <script>
+    document.getElementById("training-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      window.location.href = "success.html";
+    });
+  </script>
+</body>
+</html>

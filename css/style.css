@@ -1,0 +1,294 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #1f2933;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+.site-shell {
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(rgba(4, 30, 66, 0.56), rgba(4, 30, 66, 0.42)),
+    url("../assets/GUbackground.jpg") center / cover fixed;
+}
+
+.topbar {
+  width: 100%;
+  min-height: 72px;
+  padding: 14px clamp(16px, 5vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.topbar.solid,
+.footer.solid {
+  background: #ffffff;
+  border-bottom: 1px solid #dde3ea;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.brand-link img {
+  width: 190px;
+  max-width: 46vw;
+  height: auto;
+}
+
+.page-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.page-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #041e42;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.page-nav a:hover,
+.page-nav a[aria-current="page"] {
+  background: #041e42;
+  color: #ffffff;
+}
+
+.main-panel {
+  width: 100%;
+  min-height: calc(100vh - 136px);
+  padding: 42px 20px;
+  display: grid;
+  place-items: center;
+}
+
+.login-box {
+  width: min(100%, 420px);
+  padding: 30px;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.24);
+}
+
+.result-box {
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #6b1426;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 14px;
+  color: #041e42;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.intro {
+  margin: 0 0 22px;
+  color: #52606d;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.training-form {
+  display: grid;
+  gap: 16px;
+}
+
+.form-group {
+  display: grid;
+  gap: 6px;
+}
+
+label {
+  color: #1f2933;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #cbd2d9;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1f2933;
+  font: inherit;
+}
+
+input:focus {
+  outline: 3px solid rgba(4, 30, 66, 0.16);
+  border-color: #041e42;
+}
+
+button,
+.button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 10px 16px;
+  border: 1px solid #041e42;
+  border-radius: 4px;
+  background: #041e42;
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:hover,
+.button-link:hover {
+  background: #0a2e5c;
+}
+
+.button-link.secondary {
+  background: #ffffff;
+  color: #041e42;
+}
+
+.button-link.secondary:hover {
+  background: #f0f4f8;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer {
+  width: 100%;
+  min-height: 64px;
+  padding: 18px clamp(16px, 5vw, 56px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  background: rgba(255, 255, 255, 0.92);
+  color: #041e42;
+  font-size: 13px;
+}
+
+.footer a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.notes-page {
+  display: flex;
+  flex-direction: column;
+  background: #f5f7fa;
+}
+
+.notes-layout {
+  width: min(100%, 1040px);
+  margin: 0 auto;
+  padding: 46px 20px 60px;
+  flex: 1;
+}
+
+.notes-hero {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.notes-hero p:last-child {
+  margin: 0;
+  color: #52606d;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.note-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.note-card {
+  min-height: 190px;
+  padding: 22px;
+  border: 1px solid #dde3ea;
+  border-radius: 6px;
+  background: #ffffff;
+}
+
+.note-card h2 {
+  margin: 0 0 12px;
+  color: #041e42;
+  font-size: 18px;
+}
+
+.note-card p {
+  margin: 0;
+  color: #52606d;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .page-nav {
+    justify-content: flex-start;
+  }
+
+  .main-panel {
+    align-items: start;
+    padding-top: 26px;
+  }
+
+  .login-box {
+    padding: 24px;
+  }
+
+  .note-grid {
+    grid-template-columns: 1fr;
+  }
+}

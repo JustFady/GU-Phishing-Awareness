@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training Notes - Gonzaga Phishing Awareness</title>
+  <link rel="icon" href="assets/public-favicon.ico">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="notes-page">
+  <header class="topbar solid" aria-label="Site navigation">
+    <a class="brand-link" href="index.html">
+      <img src="assets/logo-microclimate-gonzaga-university.png" alt="Gonzaga University">
+    </a>
+    <nav class="page-nav">
+      <a href="index.html">Simulation</a>
+      <a href="success.html">Result</a>
+      <a aria-current="page" href="logs.html">Training Notes</a>
+    </nav>
+  </header>
+
+  <main class="notes-layout">
+    <section class="notes-hero" aria-labelledby="page-title">
+      <p class="eyebrow">Clean static deployment</p>
+      <h1 id="page-title">Training Notes</h1>
+      <p>This page replaces the old server-side log viewer. GitHub Pages serves static files only, so the project no longer collects, stores, displays, or downloads submitted data.</p>
+    </section>
+
+    <section class="note-grid" aria-label="Awareness reminders">
+      <article class="note-card">
+        <h2>Before You Type</h2>
+        <p>Check the address bar, page context, and whether the request was expected. Password reset prompts should come from known university systems.</p>
+      </article>
+      <article class="note-card">
+        <h2>Signals To Question</h2>
+        <p>Urgency, unfamiliar links, odd wording, and credential requests after clicking email links are common signs of phishing.</p>
+      </article>
+      <article class="note-card">
+        <h2>What This Site Does</h2>
+        <p>The simulation uses client-side navigation only. There is no Flask app, no log file, no Docker service, and no credential capture.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer solid">
+    <span>Gonzaga University phishing awareness project</span>
+    <a href="index.html">Simulation</a>
+    <a href="success.html">Result</a>
+    <a href="logs.html">Training Notes</a>
+  </footer>
+</body>
+</html>
