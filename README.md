@@ -10,7 +10,7 @@ This project is intended for cybersecurity awareness and classroom demonstration
 
 The current version does not send credentials, write logs, run a backend service, or provide downloadable submission data.
 
-After form submission, the result page shows a browser-only capture report with the submitted email address, masked password values with character counts, timestamp, public IP when available, and browser-visible metadata. Raw password values are intentionally hidden.
+After form submission, the result page shows a browser-only capture report with the submitted email address, masked password values with character counts, timestamp, public IP when available, and a small set of browser-visible metadata. Raw password values are intentionally hidden.
 
 ## Pages
 

@@ -66,29 +66,19 @@
       const maskSecret = (value) => value ? "*".repeat(Math.min(value.length, 24)) : "";
 
       sessionStorage.setItem("simulationResult", JSON.stringify({
-        schemaVersion: 2,
+        schemaVersion: 3,
         email,
         submittedAt: new Date().toLocaleString(),
-        currentPassword: `${maskSecret(currentPassword)} (${currentPassword.length} characters, raw value hidden)`,
-        newPassword: `${maskSecret(newPassword)} (${newPassword.length} characters, raw value hidden)`,
-        confirmPassword: `${maskSecret(confirmPassword)} (${confirmPassword.length} characters, raw value hidden)`,
+        currentPassword: `${maskSecret(currentPassword)} (${currentPassword.length} characters)`,
+        newPassword: `${maskSecret(newPassword)} (${newPassword.length} characters)`,
+        confirmPassword: `${maskSecret(confirmPassword)} (${confirmPassword.length} characters)`,
         passwordMatch: newPassword === confirmPassword ? "Yes" : "No",
         passwordPolicySignal: newPassword.length >= 12 ? "12+ characters" : "Under 12 characters",
         userAgent: navigator.userAgent,
         platform: navigator.platform || "Unavailable",
-        language: navigator.language || "Unavailable",
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "Unavailable",
-        screen: `${window.screen.width} x ${window.screen.height}`,
-        viewport: `${window.innerWidth} x ${window.innerHeight}`,
-        colorDepth: `${window.screen.colorDepth}-bit`,
-        deviceMemory: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : "Unavailable",
-        cpuCores: navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency}` : "Unavailable",
-        referrer: document.referrer || "Direct visit / unavailable",
         pageUrl: window.location.href,
-        cookiesEnabled: navigator.cookieEnabled ? "Yes" : "No",
-        online: navigator.onLine ? "Yes" : "No",
-        publicIp: "Checking from result page",
-        macAddress: "Unavailable to websites by browser design"
+        publicIp: "Checking from result page"
       }));
 
       window.location.href = "success.html";

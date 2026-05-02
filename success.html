@@ -50,64 +50,57 @@
 
     if (storedResult) {
       const result = JSON.parse(storedResult);
-      const valueOrUnavailable = (value) => value || "Unavailable from this submission";
-      const rows = [
-        ["Email address", valueOrUnavailable(result.email || result.maskedEmail)],
-        ["Submitted", valueOrUnavailable(result.submittedAt)],
-        ["Current password", valueOrUnavailable(result.currentPassword)],
-        ["New password", valueOrUnavailable(result.newPassword)],
-        ["Confirm password", valueOrUnavailable(result.confirmPassword)],
-        ["New passwords match", valueOrUnavailable(result.passwordMatch)],
-        ["Password length signal", valueOrUnavailable(result.passwordPolicySignal)],
-        ["Public IP address", valueOrUnavailable(result.publicIp)],
-        ["MAC address", valueOrUnavailable(result.macAddress)],
-        ["Browser", valueOrUnavailable(result.userAgent)],
-        ["Operating platform", valueOrUnavailable(result.platform)],
-        ["Language", valueOrUnavailable(result.language)],
-        ["Timezone", valueOrUnavailable(result.timezone)],
-        ["Screen size", valueOrUnavailable(result.screen)],
-        ["Viewport size", valueOrUnavailable(result.viewport)],
-        ["Color depth", valueOrUnavailable(result.colorDepth)],
-        ["Device memory", valueOrUnavailable(result.deviceMemory)],
-        ["CPU cores", valueOrUnavailable(result.cpuCores)],
-        ["Referrer", valueOrUnavailable(result.referrer)],
-        ["Page URL", valueOrUnavailable(result.pageUrl)],
-        ["Cookies enabled", valueOrUnavailable(result.cookiesEnabled)],
-        ["Browser online", valueOrUnavailable(result.online)]
-      ];
-      const list = document.createElement("dl");
+      if (result.schemaVersion !== 3) {
+        summary.innerHTML = "<p>This report was created from an older cached submission. Submit the form again to generate a clean report with the current fields.</p>";
+      } else {
+        const rows = [
+          ["Email address", result.email],
+          ["Submitted", result.submittedAt],
+          ["Current password", result.currentPassword],
+          ["New password", result.newPassword],
+          ["Confirm password", result.confirmPassword],
+          ["New passwords match", result.passwordMatch],
+          ["Password length signal", result.passwordPolicySignal],
+          ["Public IP address", result.publicIp],
+          ["Browser", result.userAgent],
+          ["Operating platform", result.platform],
+          ["Timezone", result.timezone],
+          ["Page URL", result.pageUrl]
+        ];
+        const list = document.createElement("dl");
 
-      rows.forEach(([label, value]) => {
-        const row = document.createElement("div");
-        const term = document.createElement("dt");
-        const detail = document.createElement("dd");
+        rows.forEach(([label, value]) => {
+          const row = document.createElement("div");
+          const term = document.createElement("dt");
+          const detail = document.createElement("dd");
 
-        term.textContent = label;
-        detail.textContent = value;
-        row.append(term, detail);
-        list.append(row);
-      });
-
-      summary.replaceChildren(list);
-
-      fetch("https://api.ipify.org?format=json")
-        .then((response) => response.ok ? response.json() : Promise.reject())
-        .then((data) => {
-          result.publicIp = data.ip || "Unavailable";
-          sessionStorage.setItem("simulationResult", JSON.stringify(result));
-          const ipRows = [...summary.querySelectorAll("dt")];
-          const ipLabel = ipRows.find((term) => term.textContent === "Public IP address");
-          if (ipLabel && ipLabel.nextElementSibling) {
-            ipLabel.nextElementSibling.textContent = result.publicIp;
-          }
-        })
-        .catch(() => {
-          const ipRows = [...summary.querySelectorAll("dt")];
-          const ipLabel = ipRows.find((term) => term.textContent === "Public IP address");
-          if (ipLabel && ipLabel.nextElementSibling) {
-            ipLabel.nextElementSibling.textContent = "Unavailable";
-          }
+          term.textContent = label;
+          detail.textContent = value;
+          row.append(term, detail);
+          list.append(row);
         });
+
+        summary.replaceChildren(list);
+
+        fetch("https://api.ipify.org?format=json")
+          .then((response) => response.ok ? response.json() : Promise.reject())
+          .then((data) => {
+            result.publicIp = data.ip || "Unavailable";
+            sessionStorage.setItem("simulationResult", JSON.stringify(result));
+            const ipRows = [...summary.querySelectorAll("dt")];
+            const ipLabel = ipRows.find((term) => term.textContent === "Public IP address");
+            if (ipLabel && ipLabel.nextElementSibling) {
+              ipLabel.nextElementSibling.textContent = result.publicIp;
+            }
+          })
+          .catch(() => {
+            const ipRows = [...summary.querySelectorAll("dt")];
+            const ipLabel = ipRows.find((term) => term.textContent === "Public IP address");
+            if (ipLabel && ipLabel.nextElementSibling) {
+              ipLabel.nextElementSibling.textContent = "Unavailable";
+            }
+          });
+      }
     }
   </script>
 </body>
